@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CasaGo — Encontre a casa dos seus sonhos</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts: Clash Display + DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:wght@400;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ============================
+       NAVBAR
+  ============================= -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <!-- Logo -->
+      <a href="#" class="nav-logo" onclick="showSection('home')">
+        <span class="logo-icon">⌂</span>
+        <span class="logo-text">Casa<span class="logo-accent">Go</span></span>
+      </a>
+
+      <!-- Menu Desktop -->
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#" class="nav-link active" onclick="showSection('home'); setActive(this)">Início</a></li>
+        <li><a href="#" class="nav-link" onclick="showSection('imoveis'); setActive(this)">Imóveis</a></li>
+        <li><a href="#" class="nav-link" onclick="showSection('favoritos'); setActive(this)">
+          Favoritos <span class="fav-badge" id="favBadge">0</span>
+        </a></li>
+        <li><a href="#" class="nav-link" onclick="showSection('contato'); setActive(this)">Contato</a></li>
+      </ul>
+
+      <!-- Auth Buttons -->
+      <div class="nav-auth" id="navAuth">
+        <button class="btn-login" onclick="openModal('login')">Entrar</button>
+        <button class="btn-cadastro" onclick="openModal('cadastro')">Criar conta</button>
+      </div>
+
+      <!-- User Info (quando logado) -->
+      <div class="nav-user hidden" id="navUser">
+        <span class="user-avatar" id="userAvatar">U</span>
+        <span class="user-name" id="userName">Usuário</span>
+        <button class="btn-logout" onclick="logout()">Sair</button>
+      </div>
+
+      <!-- Hamburguer Mobile -->
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============================
+       SEÇÃO: HOME (Hero + Destaques)
+  ============================= -->
+  <section id="section-home" class="section active">
+
+    <!-- Hero Banner -->
+    <div class="hero">
+      <div class="hero-bg">
+        <div class="hero-overlay"></div>
+        <!-- Imagem via CSS background -->
+      </div>
+      <div class="hero-content">
+        <p class="hero-tag animate-up delay-1">🏡 A sua nova vida começa aqui</p>
+        <h1 class="hero-title animate-up delay-2">
+          Encontre a casa<br/><em>dos seus sonhos</em>
+        </h1>
+        <p class="hero-sub animate-up delay-3">
+          Mais de 12.000 imóveis em todo o Brasil. Compra, aluguel e financiamento.
+        </p>
+
+        <!-- Search Bar -->
+        <div class="hero-search animate-up delay-4">
+          <div class="search-field">
+            <span class="search-icon">📍</span>
+            <input type="text" id="heroSearch" placeholder="Cidade, bairro ou endereço..." />
+          </div>
+          <div class="search-select">
+            <select id="heroTipo">
+              <option value="">Tipo</option>
+              <option value="casa">Casa</option>
+              <option value="apartamento">Apartamento</option>
+              <option value="cobertura">Cobertura</option>
+              <option value="luxo">Luxo</option>
+            </select>
+          </div>
+          <button class="btn-search" onclick="heroSearch()">
+            🔍 Buscar Imóveis
+          </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="hero-stats animate-up delay-5">
+          <div class="stat"><strong>12k+</strong><span>Imóveis</span></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><strong>8k+</strong><span>Clientes</span></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><strong>15+</strong><span>Cidades</span></div>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="scroll-indicator">
+        <span>Rolar</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </div>
+
+    <!-- Seção: Por que escolher a CasaGo -->
+    <div class="features-section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-tag">Por que nos escolher</p>
+          <h2 class="section-title">A plataforma que <em>simplifica</em><br/>sua busca</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card reveal">
+            <div class="feature-icon">🔍</div>
+            <h3>Busca Inteligente</h3>
+            <p>Filtros avançados para encontrar o imóvel certo em segundos.</p>
+          </div>
+          <div class="feature-card reveal">
+            <div class="feature-icon">🛡️</div>
+            <h3>Segurança Garantida</h3>
+            <p>Todos os imóveis verificados e documentação conferida.</p>
+          </div>
+          <div class="feature-card reveal">
+            <div class="feature-icon">💬</div>
+            <h3>Suporte 24/7</h3>
+            <p>Nossa equipe está sempre pronta para te ajudar.</p>
+          </div>
+          <div class="feature-card reveal">
+            <div class="feature-icon">📱</div>
+            <h3>Acesso em qualquer lugar</h3>
+            <p>Plataforma responsiva para desktop, tablet e celular.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Destaques de Imóveis -->
+    <div class="destaques-section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-tag">Destaques</p>
+          <h2 class="section-title">Imóveis em <em>destaque</em></h2>
+          <button class="btn-ver-todos" onclick="showSection('imoveis'); setActive(document.querySelectorAll('.nav-link')[1])">
+            Ver todos →
+          </button>
+        </div>
+        <div class="cards-grid" id="destaquesGrid">
+          <!-- Preenchido via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+      <div class="container">
+        <div class="cta-card reveal">
+          <div class="cta-text">
+            <h2>Pronto para encontrar<br/>seu novo lar?</h2>
+            <p>Crie sua conta gratuitamente e acesse todos os imóveis disponíveis.</p>
+            <button class="btn-cta" onclick="openModal('cadastro')">Começar agora →</button>
+          </div>
+          <div class="cta-image">
+            <div class="cta-illustration">🏠</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================
+       SEÇÃO: IMÓVEIS
+  ============================= -->
+  <section id="section-imoveis" class="section">
+    <div class="page-hero">
+      <div class="container">
+        <h1 class="page-title">Encontre seu <em>imóvel</em></h1>
+        <p class="page-sub">Explore nossa seleção completa de imóveis</p>
+      </div>
+    </div>
+
+    <div class="container imoveis-layout">
+      <!-- Sidebar de Filtros -->
+      <aside class="filters-sidebar" id="filtersSidebar">
+        <div class="filters-header">
+          <h3>Filtros</h3>
+          <button class="btn-clear-filters" onclick="clearFilters()">Limpar</button>
+        </div>
+
+        <!-- Busca por texto -->
+        <div class="filter-group">
+          <label>Pesquisar</label>
+          <div class="filter-input-wrap">
+            <span>🔍</span>
+            <input type="text" id="filterSearch" placeholder="Nome ou cidade..." oninput="applyFilters()" />
+          </div>
+        </div>
+
+        <!-- Tipo de imóvel -->
+        <div class="filter-group">
+          <label>Tipo de Imóvel</label>
+          <div class="filter-chips" id="filterTipo">
+            <button class="chip active" data-value="" onclick="selectChip(this,'tipo')">Todos</button>
+            <button class="chip" data-value="casa" onclick="selectChip(this,'tipo')">🏠 Casa</button>
+            <button class="chip" data-value="apartamento" onclick="selectChip(this,'tipo')">🏢 Apê</button>
+            <button class="chip" data-value="cobertura" onclick="selectChip(this,'tipo')">🌇 Cobertura</button>
+            <button class="chip" data-value="luxo" onclick="selectChip(this,'tipo')">💎 Luxo</button>
+          </div>
+        </div>
+
+        <!-- Quartos -->
+        <div class="filter-group">
+          <label>Quartos</label>
+          <div class="filter-chips" id="filterQuartos">
+            <button class="chip active" data-value="" onclick="selectChip(this,'quartos')">Todos</button>
+            <button class="chip" data-value="1" onclick="selectChip(this,'quartos')">1</button>
+            <button class="chip" data-value="2" onclick="selectChip(this,'quartos')">2</button>
+            <button class="chip" data-value="3" onclick="selectChip(this,'quartos')">3</button>
+            <button class="chip" data-value="4" onclick="selectChip(this,'quartos')">4+</button>
+          </div>
+        </div>
+
+        <!-- Cidade -->
+        <div class="filter-group">
+          <label>Cidade</label>
+          <select id="filterCidade" onchange="applyFilters()">
+            <option value="">Todas as cidades</option>
+            <option value="São Paulo">São Paulo</option>
+            <option value="Rio de Janeiro">Rio de Janeiro</option>
+            <option value="Curitiba">Curitiba</option>
+            <option value="Fortaleza">Fortaleza</option>
+            <option value="Florianópolis">Florianópolis</option>
+            <option value="Belo Horizonte">Belo Horizonte</option>
+          </select>
+        </div>
+
+        <!-- Faixa de Preço -->
+        <div class="filter-group">
+          <label>Faixa de Preço</label>
+          <div class="price-range">
+            <div class="price-inputs">
+              <input type="number" id="precoMin" placeholder="Mín" oninput="applyFilters()" />
+              <span>—</span>
+              <input type="number" id="precoMax" placeholder="Máx" oninput="applyFilters()" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Ordenar -->
+        <div class="filter-group">
+          <label>Ordenar por</label>
+          <select id="filterOrdem" onchange="applyFilters()">
+            <option value="default">Relevância</option>
+            <option value="preco-asc">Menor preço</option>
+            <option value="preco-desc">Maior preço</option>
+            <option value="nome">Nome A-Z</option>
+          </select>
+        </div>
+
+        <!-- Botão mobile aplicar -->
+        <button class="btn-apply-mobile" onclick="closeMobileFilters()">Ver resultados</button>
+      </aside>
+
+      <!-- Grade de Imóveis -->
+      <div class="imoveis-main">
+        <div class="imoveis-topbar">
+          <p id="resultCount" class="result-count">12 imóveis encontrados</p>
+          <button class="btn-filter-mobile" onclick="openMobileFilters()">
+            ⚙️ Filtros
+          </button>
+        </div>
+        <div class="cards-grid" id="imoveisGrid">
+          <!-- Preenchido via JS -->
+        </div>
+        <div class="no-results hidden" id="noResults">
+          <div class="no-results-icon">🏚️</div>
+          <h3>Nenhum imóvel encontrado</h3>
+          <p>Tente ajustar os filtros para ver mais opções.</p>
+          <button onclick="clearFilters()">Limpar filtros</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       SEÇÃO: FAVORITOS
+  ============================= -->
+  <section id="section-favoritos" class="section">
+    <div class="page-hero">
+      <div class="container">
+        <h1 class="page-title">Meus <em>Favoritos</em></h1>
+        <p class="page-sub">Imóveis que você salvou</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="cards-grid" id="favoritosGrid">
+        <!-- Preenchido via JS -->
+      </div>
+      <div class="no-results" id="noFavoritos">
+        <div class="no-results-icon">💔</div>
+        <h3>Nenhum favorito ainda</h3>
+        <p>Explore os imóveis e salve os que mais gostar!</p>
+        <button onclick="showSection('imoveis'); setActive(document.querySelectorAll('.nav-link')[1])">
+          Ver imóveis
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       SEÇÃO: CONTATO
+  ============================= -->
+  <section id="section-contato" class="section">
+    <div class="page-hero">
+      <div class="container">
+        <h1 class="page-title">Entre em <em>Contato</em></h1>
+        <p class="page-sub">Estamos aqui para ajudar</p>
+      </div>
+    </div>
+    <div class="container contato-layout">
+      <div class="contato-info reveal">
+        <h2>Fale com a gente</h2>
+        <p>Nossa equipe está disponível para te ajudar a encontrar o imóvel perfeito.</p>
+        <div class="contato-items">
+          <div class="contato-item">
+            <span class="contato-icon">📞</span>
+            <div>
+              <strong>Telefone</strong>
+              <p>(11) 9 9999-8888</p>
+            </div>
+          </div>
+          <div class="contato-item">
+            <span class="contato-icon">✉️</span>
+            <div>
+              <strong>E-mail</strong>
+              <p>contato@casago.com.br</p>
+            </div>
+          </div>
+          <div class="contato-item">
+            <span class="contato-icon">📍</span>
+            <div>
+              <strong>Endereço</strong>
+              <p>Av. Paulista, 1000 — São Paulo, SP</p>
+            </div>
+          </div>
+          <div class="contato-item">
+            <span class="contato-icon">🕐</span>
+            <div>
+              <strong>Horário</strong>
+              <p>Seg–Sex: 8h às 20h | Sáb: 9h às 14h</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contato-form-wrap reveal">
+        <form class="contato-form" onsubmit="enviarContato(event)">
+          <h3>Envie uma mensagem</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nome</label>
+              <input type="text" id="cNome" placeholder="Seu nome" required />
+            </div>
+            <div class="form-group">
+              <label>Telefone</label>
+              <input type="text" id="cTel" placeholder="(00) 0 0000-0000" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" id="cEmail" placeholder="seu@email.com" required />
+          </div>
+          <div class="form-group">
+            <label>Assunto</label>
+            <select id="cAssunto">
+              <option>Quero comprar um imóvel</option>
+              <option>Quero alugar um imóvel</option>
+              <option>Quero anunciar meu imóvel</option>
+              <option>Dúvida sobre financiamento</option>
+              <option>Outro assunto</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Mensagem</label>
+            <textarea id="cMsg" rows="4" placeholder="Descreva o que você precisa..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Enviar mensagem →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       RODAPÉ
+  ============================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="logo-icon">⌂</span>
+            <span class="logo-text">Casa<span class="logo-accent">Go</span></span>
+          </div>
+          <p>A plataforma imobiliária que conecta pessoas ao lar dos seus sonhos.</p>
+          <div class="social-links">
+            <a href="#" class="social-btn" aria-label="Instagram">📸</a>
+            <a href="#" class="social-btn" aria-label="Facebook">💙</a>
+            <a href="#" class="social-btn" aria-label="Twitter">🐦</a>
+            <a href="#" class="social-btn" aria-label="LinkedIn">💼</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Explorar</h4>
+          <ul>
+            <li><a href="#" onclick="showSection('imoveis')">Comprar</a></li>
+            <li><a href="#" onclick="showSection('imoveis')">Alugar</a></li>
+            <li><a href="#" onclick="showSection('imoveis')">Lançamentos</a></li>
+            <li><a href="#" onclick="showSection('imoveis')">Imóveis de luxo</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#">Sobre nós</a></li>
+            <li><a href="#">Carreiras</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Imprensa</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Suporte</h4>
+          <ul>
+            <li><a href="#" onclick="showSection('contato')">Central de ajuda</a></li>
+            <li><a href="#">Termos de uso</a></li>
+            <li><a href="#">Privacidade</a></li>
+            <li><a href="#" onclick="showSection('contato')">Fale conosco</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 CasaGo Imóveis. Todos os direitos reservados.</p>
+        <p>Desenvolvido com ❤️ para o Brasil</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================
+       MODAL DE LOGIN / CADASTRO
+  ============================= -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOverlay(event)">
+    <div class="modal-card" id="modalCard">
+
+      <!-- Modal Login -->
+      <div id="loginModal" class="modal-content">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div class="modal-header">
+          <div class="modal-logo">⌂ CasaGo</div>
+          <h2>Bem-vindo de volta!</h2>
+          <p>Entre na sua conta para continuar</p>
+        </div>
+        <form onsubmit="fazerLogin(event)">
+          <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" id="loginEmail" placeholder="seu@email.com" required />
+          </div>
+          <div class="form-group">
+            <label>Senha</label>
+            <div class="input-password">
+              <input type="password" id="loginSenha" placeholder="••••••••" required />
+              <button type="button" class="toggle-pass" onclick="togglePass('loginSenha', this)">👁️</button>
+            </div>
+          </div>
+          <div class="form-row-check">
+            <label class="checkbox-label">
+              <input type="checkbox" id="lembrar" /> Lembrar de mim
+            </label>
+            <a href="#" class="link-small">Esqueci a senha</a>
+          </div>
+          <div class="error-msg hidden" id="loginError"></div>
+          <button type="submit" class="btn-modal-submit">Entrar →</button>
+        </form>
+        <div class="modal-divider"><span>ou</span></div>
+        <p class="modal-switch">
+          Não tem conta?
+          <a href="#" onclick="switchModal('cadastro')">Criar conta grátis</a>
+        </p>
+      </div>
+
+      <!-- Modal Cadastro -->
+      <div id="cadastroModal" class="modal-content hidden">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div class="modal-header">
+          <div class="modal-logo">⌂ CasaGo</div>
+          <h2>Crie sua conta</h2>
+          <p>Grátis e sem compromisso</p>
+        </div>
+        <form onsubmit="fazerCadastro(event)">
+          <div class="form-group">
+            <label>Nome completo</label>
+            <input type="text" id="cadNome" placeholder="Seu nome" required />
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" id="cadEmail" placeholder="seu@email.com" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Senha</label>
+              <div class="input-password">
+                <input type="password" id="cadSenha" placeholder="••••••••" required />
+                <button type="button" class="toggle-pass" onclick="togglePass('cadSenha', this)">👁️</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Confirmar senha</label>
+              <div class="input-password">
+                <input type="password" id="cadConfirma" placeholder="••••••••" required />
+                <button type="button" class="toggle-pass" onclick="togglePass('cadConfirma', this)">👁️</button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="termos" required />
+              Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>
+            </label>
+          </div>
+          <div class="error-msg hidden" id="cadError"></div>
+          <button type="submit" class="btn-modal-submit">Criar conta grátis →</button>
+        </form>
+        <div class="modal-divider"><span>ou</span></div>
+        <p class="modal-switch">
+          Já tem conta? <a href="#" onclick="switchModal('login')">Fazer login</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================
+       MODAL DE DETALHES DO IMÓVEL
+  ============================= -->
+  <div class="modal-overlay" id="detalheOverlay" onclick="closeDetalheOverlay(event)">
+    <div class="modal-card modal-detalhe" id="detalheCard">
+      <button class="modal-close" onclick="closeDetalhe()">✕</button>
+      <div id="detalheContent">
+        <!-- Preenchido via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay filtros mobile -->
+  <div class="filters-overlay" id="filtersOverlay" onclick="closeMobileFilters()"></div>
+
+  <!-- Toast Notifications -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
