@@ -474,7 +474,7 @@ html.dark .btn-dark-toggle:hover { background: #2A3350; }
 /* Badge de tipo */
 .card-badge {
   position: absolute; top: 14px; left: 14px; z-index: 2;
-  background: rgb(255 255 255 / 74%); backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, 0.608); backdrop-filter: blur(6px);
   padding: 5px 12px; border-radius: 100px;
   font-size: .75rem; font-weight: 600; color: var(--navy);
   letter-spacing: .03em; text-transform: uppercase;
