@@ -5,6 +5,84 @@
    Fontes: Playfair Display (títulos) + DM Sans (corpo)
 ============================================================ */
 
+/* ============================================================
+   MODO ESCURO — Dark Mode
+   Ativado pela classe .dark no <html>
+   As variáveis sobrescrevem as do :root automaticamente
+============================================================ */
+html.dark {
+  --white:      #0F1117;
+  --off-white:  #161B27;
+  --gray-50:    #1A2035;
+  --gray-100:   #1E2640;
+  --gray-200:   #2A3350;
+  --gray-400:   #6B7899;
+  --gray-600:   #A0AABF;
+  --gray-800:   #E2E8F0;
+  --text:       #E8EDF5;
+  --text-light: #8A96B0;
+  --navy:       #E8EDF5;
+  --navy-light: #CBD5E8;
+
+  --shadow-sm:    0 2px 8px rgba(0,0,0,.35);
+  --shadow-md:    0 8px 30px rgba(0,0,0,.45);
+  --shadow-lg:    0 20px 60px rgba(0,0,0,.55);
+  --shadow-coral: 0 8px 30px rgba(255,90,95,.25);
+
+  color-scheme: dark;
+}
+
+/* Elementos que precisam de ajuste específico no dark */
+html.dark body                          { background: #0F1117; }
+html.dark .navbar                       { background: rgba(15,17,23,.88); border-bottom-color: rgba(255,255,255,.07); }
+html.dark .navbar.scrolled              { background: rgba(15,17,23,.97); }
+html.dark .nav-links                    { background: rgba(15,17,23,.98); }
+html.dark .imovel-card                  { background: #161B27; border-color: #1E2640; }
+html.dark .card-footer                  { border-top-color: #1E2640; }
+html.dark .filters-sidebar             { background: #161B27; border-color: #1E2640; }
+html.dark .filter-input-wrap           { border-color: #2A3350; background: #1E2640; }
+html.dark .filter-input-wrap input     { background: transparent; color: var(--text); }
+html.dark .filter-group select         { background: #1E2640; border-color: #2A3350; color: var(--text); }
+html.dark .chip                        { background: #161B27; border-color: #2A3350; color: #8A96B0; }
+html.dark .chip.active                 { background: var(--coral); border-color: var(--coral); color: #fff; }
+html.dark .price-inputs input          { background: #1E2640; border-color: #2A3350; color: var(--text); }
+html.dark .feature-card                { background: #161B27; border-color: #1E2640; }
+html.dark .hero-bg                     { filter: brightness(.75); }
+html.dark .contato-form-wrap           { background: #161B27; border-color: #1E2640; }
+html.dark .form-group input,
+html.dark .form-group select,
+html.dark .form-group textarea         { background: #1E2640; border-color: #2A3350; color: var(--text); }
+html.dark .modal-card                  { background: #161B27; }
+html.dark .modal-content input         { background: #1E2640; border-color: #2A3350; color: var(--text); }
+html.dark .modal-close                 { background: #2A3350; color: #A0AABF; }
+html.dark .modal-close:hover           { background: #333D5C; }
+html.dark .modal-divider::before,
+html.dark .modal-divider::after        { background: #2A3350; }
+html.dark .footer                      { background: #0A0D15; }
+html.dark .footer-bottom               { border-top-color: rgba(255,255,255,.06); }
+html.dark .cta-card                    { background: linear-gradient(135deg, #0A0D15 0%, #131828 100%); }
+html.dark .btn-login                   { border-color: #2A3350; color: var(--text); }
+html.dark .btn-login:hover             { background: #1E2640; }
+html.dark .btn-logout                  { border-color: #2A3350; color: #8A96B0; }
+html.dark .search-demo,
+html.dark .hero-search                 { background: #161B27; border-color: #2A3350; }
+html.dark .search-field input          { color: var(--text); }
+html.dark .search-select select        { color: #8A96B0; }
+html.dark .page-hero                   { background: linear-gradient(135deg, #0A0D15 0%, #131828 100%); }
+html.dark .destaques-section           { background: #0F1117; }
+html.dark .features-section            { background: #0F1117; }
+html.dark .cta-section                 { background: #0F1117; }
+html.dark .card-img-placeholder        { background: #1E2640; }
+html.dark .mini-nav                    { background: rgba(15,17,23,.88); border-color: #2A3350; }
+html.dark .btn-demo                    { background: #161B27; border-color: #2A3350; color: var(--text); }
+html.dark .btn-demo:hover              { background: #1E2640; }
+html.dark .pill                        { background: #161B27; border-color: #2A3350; color: #8A96B0; }
+html.dark .mapa-fake                   { background: linear-gradient(135deg, #1A2035 25%, #131828 75%); border-color: #2A3350; }
+html.dark .detalhe-specs               { border-color: #2A3350; }
+html.dark .feats-grid .feat-item       { background: #1E2640; }
+html.dark .error-msg                   { background: #3B1515; border-color: #7F1D1D; color: #FCA5A5; }
+html.dark .no-results h3               { color: var(--text); }
+
 /* ── Variáveis CSS ── */
 :root {
   --coral:       #FF5A5F;
@@ -162,6 +240,22 @@ select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmln
   transition: var(--transition-fast);
 }
 .btn-logout:hover { border-color: var(--coral); color: var(--coral); }
+
+/* Botão modo escuro */
+.btn-dark-toggle {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--gray-100);
+  border: 1.5px solid var(--gray-200);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; cursor: pointer; flex-shrink: 0;
+  transition: var(--transition);
+}
+.btn-dark-toggle:hover {
+  background: var(--gray-200);
+  transform: rotate(20deg) scale(1.1);
+}
+html.dark .btn-dark-toggle { background: #1E2640; border-color: #2A3350; }
+html.dark .btn-dark-toggle:hover { background: #2A3350; }
 
 /* Hamburger */
 .hamburger {

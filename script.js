@@ -643,3 +643,37 @@ function observeReveal() {
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
 }
+
+/* ── MODO ESCURO ── */
+function toggleDarkMode() {
+  var html = document.documentElement;
+  var btn = document.getElementById('darkToggle');
+  var isDark = html.classList.toggle('dark');
+
+  // Atualiza ícone
+  btn.querySelector('.dark-icon').textContent = isDark ? '☀️' : '🌙';
+  btn.title = isDark ? 'Modo claro' : 'Modo escuro';
+
+  // Salvar preferência
+  localStorage.setItem('casago_dark', isDark ? '1' : '0');
+}
+
+// Aplicar preferência salva ao carregar a página
+(function () {
+  var pref = localStorage.getItem('casago_dark');
+  // Se não tem preferência salva, checar sistema operacional do usuário
+  if (pref === null) {
+    pref = window.matchMedia('(prefers-color-scheme: dark)').matches ? '1' : '0';
+  }
+  if (pref === '1') {
+    document.documentElement.classList.add('dark');
+    // Atualiza ícone depois que o DOM carregar
+    document.addEventListener('DOMContentLoaded', function () {
+      var btn = document.getElementById('darkToggle');
+      if (btn) {
+        btn.querySelector('.dark-icon').textContent = '☀️';
+        btn.title = 'Modo claro';
+      }
+    });
+  }
+})();
